@@ -1,6 +1,7 @@
 package com.blackdog.bootcommerce.model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +26,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produto {
+public class Produto implements Serializable {
 
 	
+	private static final long serialVersionUID = 3708783359877565541L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
