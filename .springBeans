@@ -7,9 +7,9 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>java:com.blackdog.bootcommerce.Boot2CommerceStartApplication</config>
 	</configs>
 	<autoconfigs>
+		<config>java:com.nelioalves.cursomc.CursomcApplication</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
