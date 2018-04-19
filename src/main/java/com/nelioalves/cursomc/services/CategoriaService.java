@@ -10,6 +10,8 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.nelioalves.cursomc.domain.Categoria;
+import com.nelioalves.cursomc.domain.Categoria;
+import com.nelioalves.cursomc.dto.CategoriaDto;
 import com.nelioalves.cursomc.dto.CategoriaDto;
 import com.nelioalves.cursomc.repositories.CategoriaRepository;
 import com.nelioalves.cursomc.services.exceptions.DataIntegrityException;
@@ -36,12 +38,15 @@ public class CategoriaService {
 
   public CategoriaDto update(Integer id, CategoriaDto dto) {
     
-    //Verificacao de seguranca
-    find(id);
-    
-    Categoria obj = new Categoria(dto);
-    repo.save(obj);
-    return new CategoriaDto(obj);
+    Categoria newObj = find(id);
+
+    updateData(newObj, dto);
+
+    repo.save(newObj);
+    return new CategoriaDto(newObj);
+  }
+  private void updateData(Categoria newObj, CategoriaDto dto) {
+    newObj.setNome(dto.getNome());
   }
 
   public void delete(Integer id) {

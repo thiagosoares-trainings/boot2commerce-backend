@@ -50,12 +50,6 @@ public class Cliente implements Serializable {
     this.tipo = tipo == null ? null : tipo.getCod();
   }
 
-  public Cliente(ClienteDto dto) {
-    this.id = dto.getId();
-    this.nome = dto.getNome();
-    this.email = dto.getEmail();
-  }
-
   public Integer getId() {
     return id;
   }
