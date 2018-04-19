@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.nelioalves.cursomc.domain.Categoria;
 import com.nelioalves.cursomc.repositories.CategoriaRepository;
+import com.nelioalves.cursomc.services.exceptions.DataIntegrityException;
 import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -32,6 +33,18 @@ public class CategoriaService {
     return repo.save(obj);
   }
 
+  public void delete(Integer id) {
+    
+    try {
+      
+      repo.deleteById(id);
+      
+    } catch (org.springframework.dao.DataIntegrityViolationException e) {
+      throw new DataIntegrityException("Não é possível excluir uma categoria com produtos", e);
+    }
+  }
+
+  
   
 
 
