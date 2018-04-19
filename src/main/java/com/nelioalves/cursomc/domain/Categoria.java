@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import com.nelioalves.cursomc.dto.CategoriaDto;
 
 @Entity
 public class Categoria implements Serializable {
@@ -24,6 +25,12 @@ public class Categoria implements Serializable {
 	
 	public Categoria() {
 	}
+	
+	public Categoria(CategoriaDto dto) {
+	  super();
+	  this.id = dto.getId();
+	  this.nome = dto.getNome();
+    }
 
 	public Categoria(Integer id, String nome) {
 		super();

@@ -2,6 +2,7 @@ package com.nelioalves.cursomc.resources;
 
 import java.net.URI;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,7 @@ public class CategoriaResource {
 
 
   @RequestMapping(value = "", method = RequestMethod.POST)
-  public ResponseEntity<Void> insert(@RequestBody Categoria obj) {
+  public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDto obj) {
 
     obj = service.insert(obj);
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -59,7 +60,7 @@ public class CategoriaResource {
   }
   
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody Categoria obj) {
+  public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody CategoriaDto obj) {
     obj.setId(id);
     obj = service.update(id, obj);
     return ResponseEntity.noContent().build();

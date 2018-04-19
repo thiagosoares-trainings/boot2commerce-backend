@@ -26,17 +26,22 @@ public class CategoriaService {
     return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto " + id + " não encontrado"));
   }
 
-  public Categoria insert(Categoria obj) {
+  public CategoriaDto insert(CategoriaDto dto) {
+    
+    Categoria obj = new Categoria(dto);
     obj.setId(null);
-    return repo.save(obj);
+    repo.save(obj);
+    return new CategoriaDto(obj);
   }
 
-  public Categoria update(Integer id, Categoria obj) {
+  public CategoriaDto update(Integer id, CategoriaDto dto) {
     
     //Verificacao de seguranca
     find(id);
     
-    return repo.save(obj);
+    Categoria obj = new Categoria(dto);
+    repo.save(obj);
+    return new CategoriaDto(obj);
   }
 
   public void delete(Integer id) {
