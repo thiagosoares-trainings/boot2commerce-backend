@@ -1,6 +1,7 @@
 package com.nelioalves.cursomc.resources;
 
 import java.net.URI;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.nelioalves.cursomc.domain.Categoria;
+import com.nelioalves.cursomc.dto.CategoriaDto;
 import com.nelioalves.cursomc.services.CategoriaService;
 
 @RestController
@@ -19,6 +21,13 @@ public class CategoriaResource {
   @Autowired
   private CategoriaService service;
 
+  
+  @RequestMapping(value = "", method = RequestMethod.GET)
+  public ResponseEntity<List<CategoriaDto>> findAll() {
+    List<CategoriaDto> obj = service.findAll();
+    return ResponseEntity.ok().body(obj);
+  }
+  
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public ResponseEntity<Categoria> find(@PathVariable Integer id) {
     Categoria obj = service.find(id);
