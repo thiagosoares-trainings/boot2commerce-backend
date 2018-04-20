@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.nelioalves.cursomc.domain.Categoria;
 import com.nelioalves.cursomc.domain.Produto;
 import com.nelioalves.cursomc.repositories.CategoriaRepository;
-import com.nelioalves.cursomc.repositories.PedidoRepository;
 import com.nelioalves.cursomc.repositories.ProdutoRepository;
 import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
 
