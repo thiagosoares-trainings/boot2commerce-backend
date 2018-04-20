@@ -4,10 +4,12 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import com.nelioalves.cursomc.domain.Cliente;
+import com.nelioalves.cursomc.services.validator.ClienteUpdate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@ClienteUpdate
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
