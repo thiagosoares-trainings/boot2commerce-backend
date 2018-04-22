@@ -10,11 +10,13 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nelioalves.cursomc.domain.enums.Perfil;
 import com.nelioalves.cursomc.domain.enums.TipoCliente;
 import com.nelioalves.cursomc.dto.ClienteDto;
 
@@ -43,15 +45,26 @@ public class Cliente implements Serializable {
   @OneToMany(mappedBy = "cliente")
   private List<Pedido> pedidos = new ArrayList<>();
 
-  public Cliente() {}
+  @JsonIgnore
+  private String senha;
+  
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(name = "perfis_usuario")
+  private Set<Perfil> perfis = new HashSet<>();
+  
+  public Cliente() {
+    super();
+    addPerfil(Perfil.CLIENTE);
+  }
 
-  public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+  public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
     super();
     this.id = id;
     this.nome = nome;
     this.email = email;
     this.cpfOuCnpj = cpfOuCnpj;
     this.tipo = tipo == null ? null : tipo.getCod();
+    addPerfil(Perfil.CLIENTE);
   }
 
   public Integer getId() {
@@ -117,6 +130,31 @@ public class Cliente implements Serializable {
   public void setPedidos(List<Pedido> pedidos) {
     this.pedidos = pedidos;
   }
+  
+
+  public String getSenha() {
+    return senha;
+  }
+
+  public void setSenha(String senha) {
+    this.senha = senha;
+  }
+
+  public void setTipo(Integer tipo) {
+    this.tipo = tipo;
+  }
+
+  public Set<Perfil> getPerfis() {
+    return perfis;
+  }
+
+  public void setPerfis(Set<Perfil> perfis) {
+    this.perfis = perfis;
+  }
+  
+  public void addPerfil(Perfil perfis) {
+    this.perfis.add(perfis);
+  }
 
   @Override
   public int hashCode() {
@@ -142,5 +180,7 @@ public class Cliente implements Serializable {
       return false;
     return true;
   }
+
+   
 
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.nelioalves.cursomc.domain.Categoria;
 import com.nelioalves.cursomc.domain.Cidade;
@@ -19,6 +20,7 @@ import com.nelioalves.cursomc.domain.PagamentoComCartao;
 import com.nelioalves.cursomc.domain.Pedido;
 import com.nelioalves.cursomc.domain.Produto;
 import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
+import com.nelioalves.cursomc.domain.enums.Perfil;
 import com.nelioalves.cursomc.domain.enums.TipoCliente;
 import com.nelioalves.cursomc.repositories.CategoriaRepository;
 import com.nelioalves.cursomc.repositories.CidadeRepository;
@@ -61,6 +63,8 @@ public class InitDBService {
   @Autowired
   private ItemPedidoRepository itemPedidoRepository;
   
+  @Autowired
+  private BCryptPasswordEncoder pe;
   
   public void initializeTestDataBase() throws ParseException {
 
@@ -127,8 +131,7 @@ public class InitDBService {
     estadoRepository.saveAll(Arrays.asList(est1, est2));
     cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
-    Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377",
-        TipoCliente.PESSOAFISICA);
+    Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, pe.encode("123456"));
 
     cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 
@@ -180,6 +183,23 @@ public class InitDBService {
     }
     categoriaRepository.saveAll(categorias);
 
+    
+    
+
+    Cliente cli2 = new Cliente(null, "Admin", "admin@gmail.com", "57463261000", TipoCliente.PESSOAFISICA, pe.encode("123456"));
+    cli2.addPerfil(Perfil.ADMIN);
+    cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+
+    Endereco e3 =
+        new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
+    Endereco e4 =
+        new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+
+    cli2.getEnderecos().addAll(Arrays.asList(e3, e4));
+
+    clienteRepository.saveAll(Arrays.asList(cli2));
+    enderecoRepository.saveAll(Arrays.asList(e3, e4));
+    
   }
   
 }
