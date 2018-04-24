@@ -46,6 +46,7 @@ public class Cliente implements Serializable {
   @OneToMany(mappedBy = "cliente")
   private List<Pedido> pedidos = new ArrayList<>();
 
+  @Column(nullable = false)
   @JsonIgnore
   private String senha;
   
@@ -66,6 +67,8 @@ public class Cliente implements Serializable {
     this.email = email;
     this.cpfOuCnpj = cpfOuCnpj;
     this.tipo = tipo == null ? null : tipo.getCod();
+    
+    this.senha = senha;
     addPerfil(Perfil.CLIENTE);
   }
 
