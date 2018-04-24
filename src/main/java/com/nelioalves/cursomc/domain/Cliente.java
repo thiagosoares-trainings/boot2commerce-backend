@@ -10,6 +10,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -48,6 +49,7 @@ public class Cliente implements Serializable {
   @JsonIgnore
   private String senha;
   
+  @Enumerated
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "perfis_usuario")
   private Set<Perfil> perfis = new HashSet<>();

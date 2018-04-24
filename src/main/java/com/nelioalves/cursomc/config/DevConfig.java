@@ -25,8 +25,6 @@ public class DevConfig {
       dbService.initializeTestDataBase();
     }
     
-    
-    
     return true;
   }
   

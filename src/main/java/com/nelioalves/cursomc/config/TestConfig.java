@@ -10,11 +10,9 @@ import com.nelioalves.cursomc.services.test.InitDBService;
 @Configuration
 @Profile("test")
 public class TestConfig {
-
   
   @Autowired
   private InitDBService dbService;
-  
   
   @Bean
   public boolean instaciateDatabase() throws ParseException {
