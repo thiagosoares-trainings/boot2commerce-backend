@@ -1,14 +1,10 @@
 package com.nelioalves.cursomc.resources;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,8 +21,13 @@ public class ProdutoResource {
   @Autowired
   private ProdutoService service;
 
-
+  
   @RequestMapping(value = "", method = RequestMethod.GET)
+  public ResponseEntity<ProdutoDto> findAllPagged(@PathVariable Integer id) {
+    return ResponseEntity.ok().body(new ProdutoDto(service.find(id)));
+  }
+  
+  @RequestMapping(value = "/paged", method = RequestMethod.GET)
   public ResponseEntity<Page<ProdutoDto>> findAllPagged(
       @RequestParam(name = "nome", defaultValue = "") String nome,
       @RequestParam(name = "categorias", defaultValue = "") String categorias,
@@ -34,8 +35,7 @@ public class ProdutoResource {
       @RequestParam(name = "linesPerPage", defaultValue = "24") Integer linesPerPage,
       @RequestParam(name = "orderBy", defaultValue = "nome") String orderBy,
       @RequestParam(name = "direction", defaultValue = "ASC") String direction) {
-    
-    
+
     List<Integer> catIds = URL.decodeIntList(categorias);
     
     nome = URL.decodeParam(nome);
