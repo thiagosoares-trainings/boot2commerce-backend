@@ -38,7 +38,7 @@ public class CategoriaResource {
                                                           @RequestParam(name = "orderBy", defaultValue = "nome") String orderBy, 
                                                           @RequestParam(name = "direction", defaultValue = "ASC") String direction) {
     
-    Page<Categoria> pageList = service.findPagged(page, linesPerPage, orderBy, direction);
+    Page<Categoria> pageList = service.findPaged(page, linesPerPage, orderBy, direction);
     Page<CategoriaDto> pageDto = pageList.map(cat -> new CategoriaDto(cat));
     return ResponseEntity.ok().body(pageDto);
   }

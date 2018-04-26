@@ -42,7 +42,7 @@ public class ClienteResource {
                                                           @RequestParam(name = "orderBy", defaultValue = "nome") String orderBy, 
                                                           @RequestParam(name = "direction", defaultValue = "ASC") String direction) {
     
-    Page<Cliente> pageList = service.findPagged(page, linesPerPage, orderBy, direction);
+    Page<Cliente> pageList = service.findPaged(page, linesPerPage, orderBy, direction);
     Page<ClienteDto> pageDto = pageList.map(cat -> new ClienteDto(cat));
     return ResponseEntity.ok().body(pageDto);
   }

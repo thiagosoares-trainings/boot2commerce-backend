@@ -38,7 +38,6 @@ public class ClienteService {
   @Autowired
   private BCryptPasswordEncoder pe;
 
-
   public Cliente find(Integer id) {
     
     UserSS user = UserService.authenticated();
@@ -59,7 +58,6 @@ public class ClienteService {
     repo.save(obj);
     
     enderecoRepo.saveAll(obj.getEnderecos());
-    
     
     return new ClienteDto(obj);
   }
@@ -97,7 +95,7 @@ public class ClienteService {
     return listDto;
   }
 
-  public Page<Cliente> findPagged(Integer page, Integer linesPerPage, String orderBy,
+  public Page<Cliente> findPaged(Integer page, Integer linesPerPage, String orderBy,
       String direction) {
 
     PageRequest pageRequest =

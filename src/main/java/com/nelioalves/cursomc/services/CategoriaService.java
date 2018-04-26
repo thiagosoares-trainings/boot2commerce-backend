@@ -69,7 +69,7 @@ public class CategoriaService {
     return listDto;
   }
 
-  public Page<Categoria> findPagged(Integer page, Integer linesPerPage, String orderBy, String direction) {
+  public Page<Categoria> findPaged(Integer page, Integer linesPerPage, String orderBy, String direction) {
     
     PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
     
