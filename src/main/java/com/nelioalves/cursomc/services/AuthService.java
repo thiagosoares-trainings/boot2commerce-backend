@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.nelioalves.cursomc.domain.Cliente;
 import com.nelioalves.cursomc.repositories.ClienteRepository;
 import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
+import com.nelioalves.cursomc.services.mail.EmailService;
 
 @Service
 public class AuthService {
@@ -18,6 +19,9 @@ public class AuthService {
   
   @Autowired
   private BCryptPasswordEncoder pe;
+  
+  @Autowired
+  private EmailService emailService;
   
   private Random random = new Random();
   
@@ -36,7 +40,7 @@ public class AuthService {
     clienteRepository.save(cliente);
     
     //TODO Enviar o email
-    //emailService.sendNewPasswordEmail()
+    emailService.sendNewPasswordEmail(cliente, newPass);
     
   }
 

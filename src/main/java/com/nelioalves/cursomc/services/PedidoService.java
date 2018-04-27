@@ -29,6 +29,7 @@ import com.nelioalves.cursomc.repositories.PedidoRepository;
 import com.nelioalves.cursomc.security.UserSS;
 import com.nelioalves.cursomc.services.exceptions.AuthorizationException;
 import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
+import com.nelioalves.cursomc.services.mail.EmailService;
 
 @Service
 public class PedidoService {
@@ -50,6 +51,9 @@ public class PedidoService {
 
   @Autowired
   private ClienteService clienteService;
+  
+  @Autowired
+  private EmailService emailService;
 
 
   public Pedido find(Integer id) {
@@ -86,6 +90,8 @@ public class PedidoService {
     }
 
     itemPedidoRepository.saveAll(obj.getItens());
+    
+    emailService.sendOrderConfirmationEmail(obj);
 
     return obj;
   }
