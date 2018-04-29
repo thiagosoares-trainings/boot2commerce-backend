@@ -91,6 +91,18 @@ public class InitDBService {
     Produto p11 = new Produto(null, "Shampoo", 90.00);
 
     cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
+    
+    List<Produto> produtos = new ArrayList<>();
+    for (int i = 0; i < 50; i++) {
+      produtos.add(new Produto(i, "Produto " + i, 1.0));
+    }
+    for(Produto p : produtos) {
+      p.getCategorias().add(cat1);
+    }
+    cat1.getProdutos().addAll(produtos);
+    
+    System.out.println(cat1.getProdutos().size());
+    
     cat2.getProdutos().addAll(Arrays.asList(p2));
 
     p1.getCategorias().addAll(Arrays.asList(cat1));
@@ -116,7 +128,10 @@ public class InitDBService {
     p11.getCategorias().addAll(Arrays.asList(cat7));
 
     categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
-    produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
+//    produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
+    produtos.addAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
+    produtoRepository.saveAll(produtos);
+    
 
     Estado est1 = new Estado(null, "Minas Gerais");
     Estado est2 = new Estado(null, "São Paulo");
@@ -183,8 +198,6 @@ public class InitDBService {
     }
     categoriaRepository.saveAll(categorias);
 
-    
-    
 
     Cliente cli2 = new Cliente(null, "Admin", "admin@gmail.com", "57463261000", TipoCliente.PESSOAFISICA, pe.encode("123456"));
     cli2.addPerfil(Perfil.ADMIN);
@@ -199,7 +212,7 @@ public class InitDBService {
 
     clienteRepository.saveAll(Arrays.asList(cli2));
     enderecoRepository.saveAll(Arrays.asList(e3, e4));
-    
+     
   }
   
 }

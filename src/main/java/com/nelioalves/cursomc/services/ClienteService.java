@@ -127,6 +127,21 @@ public class ClienteService {
     newObj.setEmail(dto.getEmail());
   }
 
+
+  public Cliente findByEmail(String email) {
+    UserSS user = UserService.authenticated();
+    if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+      throw new AuthorizationException("Acesso negado");
+    }
+
+    Cliente obj = repo.findByEmail(email);
+    if (obj == null) {
+      throw new ObjectNotFoundException(
+          "Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Cliente.class.getName());
+    }
+    return obj;
+  }
+
   private Cliente fromDto(ClienteDto dto) {
     return new Cliente(dto.getId(), dto.getNome(), dto.getEmail(), null, null, null);
   }
@@ -166,7 +181,7 @@ public class ClienteService {
 
     return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
 
-    //return s3Service.uploadFile(multipartFile);
+    // return s3Service.uploadFile(multipartFile);
   }
 
 }
