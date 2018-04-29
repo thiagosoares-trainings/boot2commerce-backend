@@ -13,10 +13,12 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 @Configuration
 public class S3Config {
 	
-	@Value("${aws.access_key_id}")
+	//@Value("${aws.access_key_id}") //Buscar no application.properties
+    @Value("#{environment.aws_access_key_id}") //Buscar nas variavies de ambiente
 	private String awsId;
 
-	@Value("${aws.secret_access_key}")
+	//@Value("${aws.secret_access_key}") //Buscar no application.properties
+	@Value("#{environment.aws_secret_access_key}") //Buscar nas variavies de ambiente
 	private String awsKey;
 
 	@Value("${s3.region}")
