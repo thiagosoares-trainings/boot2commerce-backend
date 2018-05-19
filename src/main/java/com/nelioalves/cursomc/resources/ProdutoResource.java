@@ -22,12 +22,13 @@ public class ProdutoResource {
   private ProdutoService service;
 
   
-  @RequestMapping(value = "", method = RequestMethod.GET)
-  public ResponseEntity<ProdutoDto> findAllPagged(@PathVariable Integer id) {
-    return ResponseEntity.ok().body(new ProdutoDto(service.find(id)));
-  }
+  @RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<Produto> find(@PathVariable Integer id) {
+		Produto obj = service.find(id);
+		return ResponseEntity.ok().body(obj);
+	}
   
-  @RequestMapping(value = "/paged", method = RequestMethod.GET)
+  @RequestMapping(value = "", method = RequestMethod.GET)
   public ResponseEntity<Page<ProdutoDto>> findAllPagged(
       @RequestParam(name = "nome", defaultValue = "") String nome,
       @RequestParam(name = "categorias", defaultValue = "") String categorias,
