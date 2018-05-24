@@ -15,5 +15,4 @@ public class FieldMessage implements Serializable {
 	private String message;
 	
 	
-	
 }
