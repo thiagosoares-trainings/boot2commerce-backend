@@ -145,9 +145,9 @@ public class Cliente implements Serializable {
     this.senha = senha;
   }
 
-  public void setTipo(Integer tipo) {
+  /*public void setTipo(Integer tipo) {
     this.tipo = tipo;
-  }
+  }*/
 
   public Set<Perfil> getPerfis() {
     return perfis;
