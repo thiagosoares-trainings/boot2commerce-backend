@@ -33,8 +33,8 @@ public class ProdConfig {
   
   @Bean
   public EmailService emailService() {
-    return new MockEmailService();
-      //return new SmtpEmailService(); 
+    //return new MockEmailService();
+    return new SmtpEmailService(); 
   }
   
 }
